@@ -12,83 +12,50 @@ import twitter4j.http.RequestToken;
 public class OAuthSetup {
 
     /**
-
+     * 
      * @param args
-
      */
     public static void main(String args[]) throws Exception {
-
         // The factory instance is re-useable and thread safe.
-
         Twitter twitter = new TwitterFactory().getInstance();
-
-        //insert the appropriate consumer key and consumer secret here
-
-//        twitter.setOAuthConsumer("ZquXeeIh5tFtOQmjqRUyhg", "meNDe6cmTxfRs3Ik5kDhpTc2Q9Dyw9ZHtlEevdGvnw");
+        // insert the appropriate consumer key and consumer secret here
+        // twitter.setOAuthConsumer("ZquXeeIh5tFtOQmjqRUyhg",
+        // "meNDe6cmTxfRs3Ik5kDhpTc2Q9Dyw9ZHtlEevdGvnw");
 
         RequestToken requestToken = twitter.getOAuthRequestToken();
-
         AccessToken accessToken = null;
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         while (null == accessToken) {
-
             System.out.println("Open the following URL and grant access to your account:");
-
             System.out.println(requestToken.getAuthorizationURL());
-
-            System.out.print("Enter the PIN(if aviailable) or just hit enter.[PIN]:");
+            System.out.print("Enter the PIN(if available) or just hit enter.[PIN]:");
 
             String pin = br.readLine();
 
             try {
-
-
-
-
-
                 if (pin.length() > 0) {
-
                     accessToken = twitter.getOAuthAccessToken(requestToken, pin);
-
                 } else {
-
                     accessToken = twitter.getOAuthAccessToken();
-
                 }
-
             } catch (TwitterException te) {
-
                 if (401 == te.getStatusCode()) {
-
                     System.out.println("Unable to get the access token.");
-
                 } else {
-
                     te.printStackTrace();
-
                 }
-
             }
-
         }
-
-        //persist to the accessToken for future reference.
-
+        // persist to the accessToken for future reference.
         System.out.println(twitter.verifyCredentials().getId());
-
         System.out.println("token : " + accessToken.getToken());
-
         System.out.println("tokenSecret : " + accessToken.getTokenSecret());
 
-        //storeAccessToken(twitter.verifyCredentials().getId() , accessToken);
-
+        // storeAccessToken(twitter.verifyCredentials().getId() , accessToken);
         Status status = twitter.updateStatus(args[0]);
 
         System.out.println("Successfully updated the status to [" + status.getText() + "].");
-
         System.exit(0);
-
     }
 }

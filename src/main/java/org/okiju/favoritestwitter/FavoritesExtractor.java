@@ -14,9 +14,14 @@ import java.util.Properties;
 public class FavoritesExtractor {
 
     public static void main(String[] args) {
-        Properties props = loadProperties();
+        if (args.length < 1) {
+            System.out.println("Use: FavoritesExtractor configPath");
+            System.exit(1);
+        }
+        String path = args[0];
+        Properties props = loadProperties(path, "email.props");
 
-        List<String> twits = TwitterHelper.generateListTwits();
+        List<String> twits = TwitterHelper.generateListTwits(path);
 
         String prefix = "ficheroTwits";
         FileHelper.writeCollectionInDatedFile(prefix, twits);
@@ -29,18 +34,17 @@ public class FavoritesExtractor {
         String recipient = props.getProperty("recipient");
         String username = props.getProperty("username");
         String password = props.getProperty("password");
-        
+
         String subject = "Favoritos del día " + sdf.format(new Date());
-        
+
         MailHelper.sendMessage(message, subject, recipient, from, username, password);
     }
 
-    private static Properties loadProperties() {
+    public static Properties loadProperties(String path, String file) {
         Properties props = new Properties();
         try {
-            String path = "./";
-            
-            props.load(new FileInputStream(path + "email.props"));
+
+            props.load(new FileInputStream(path + "/" + file));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
