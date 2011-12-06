@@ -1,4 +1,0 @@
-from=sender@mail.com
-recipient=receiver@mail.com
-username=username@mail.com
-password=passwd

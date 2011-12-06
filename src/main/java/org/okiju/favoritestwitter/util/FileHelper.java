@@ -1,4 +1,4 @@
-package org.okiju.favoritestwitter;
+package org.okiju.favoritestwitter.util;
 
 import java.io.File;
 import java.io.IOException;

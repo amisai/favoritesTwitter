@@ -1,4 +1,4 @@
-package org.okiju.favoritestwitter;
+package org.okiju.favoritestwitter.util;
 
 import java.util.Properties;
 
@@ -11,8 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailHelper {
-    public static void sendMessage(String textMessage, String subject, String recipient, String from,
-            final String username, final String password) {
+    public static void sendMessage(String textMessage, String subject, final EmailBean emailBean) {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
@@ -22,14 +21,14 @@ public class MailHelper {
 
         Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication(emailBean.getUsername(), emailBean.getPassword());
             }
         });
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+            message.setFrom(new InternetAddress(emailBean.getFrom()));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailBean.getRecipient()));
             message.setSubject(subject);
             message.setText(textMessage);
 

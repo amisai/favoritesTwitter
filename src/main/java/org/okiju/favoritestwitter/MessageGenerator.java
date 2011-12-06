@@ -16,10 +16,10 @@ public class MessageGenerator {
     public static String generateMessage(List<String> data) {
         String result = "";
         VelocityContext context = new VelocityContext();
-         context.put("data", data);
+        context.put("data", data);
         String templateFile = "";
         if (data.isEmpty()) {
-            templateFile ="emptyTemplate.vtl";
+            templateFile = "emptyTemplate.vtl";
         } else {
             templateFile = "contentTemplate.vtl";
         }

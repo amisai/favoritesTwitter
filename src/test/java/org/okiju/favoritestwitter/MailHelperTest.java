@@ -1,10 +1,7 @@
 package org.okiju.favoritestwitter;
 
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Flags;
@@ -17,6 +14,9 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.search.SubjectTerm;
 
+import org.okiju.favoritestwitter.cli.PropertyHelper;
+import org.okiju.favoritestwitter.util.EmailBean;
+import org.okiju.favoritestwitter.util.MailHelper;
 import org.testng.annotations.Test;
 
 /**
@@ -29,20 +29,18 @@ public class MailHelperTest {
         String subject = "subject";
         String recipient = "abel.cuenca@gmail.com";
         String from = "abel.cuenca@gmail.com";
-        Properties props = new Properties();
-        try {
-            String path = "./target/test-classes/";
-            
-            props.load(new FileInputStream(path + "email.props"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail("no props file is found");
-        }
-        String username = props.getProperty("username");
-        String password = props.getProperty("password");
-        MailHelper.sendMessage(textMessage, subject, recipient, from, username, password);
 
-        assertTrue(checkEmailAccount(subject, textMessage, username, password), "message is not found");
+        String path = "./target/test-classes/";
+
+        Properties props = PropertyHelper.loadProperties(path);
+
+        EmailBean emailBean = new EmailBean(props);
+        emailBean.setRecipient(recipient);
+        emailBean.setFrom(from);
+        
+        MailHelper.sendMessage(textMessage, subject, emailBean);
+
+        assertTrue(checkEmailAccount(subject, textMessage, emailBean.getUsername(), emailBean.getPassword()), "message is not found");
     }
 
     private boolean checkEmailAccount(String subject, String textMessage, final String username, final String password) {
@@ -51,7 +49,6 @@ public class MailHelperTest {
         props.setProperty("mail.store.protocol", "imaps");
         try {
 
-//            Session session = Session.getDefaultInstance(props, null);
             Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(username, password);

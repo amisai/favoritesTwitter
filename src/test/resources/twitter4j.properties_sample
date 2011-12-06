@@ -1,5 +1,13 @@
 debug=false
+
+#twitter configuration
 oauth.consumerKey=consumerKey
 oauth.consumerSecret=consumerSecret
 oauth.accessToken=accessToken
 oauth.accessTokenSecret=tokenSecret
+
+#email configuration
+from=sender@mail.com
+recipient=receiver@mail.com
+username=username@mail.com
+password=passwd

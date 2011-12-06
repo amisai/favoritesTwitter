@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.okiju.favoritestwitter.util.FileHelper;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 

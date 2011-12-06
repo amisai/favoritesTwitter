@@ -1,4 +1,4 @@
-package org.okiju.favoritestwitter;
+package org.okiju.favoritestwitter.cli;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.okiju.favoritestwitter.cli.PropertyHelper;
-
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -14,14 +12,20 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.PropertyConfiguration;
 
-public class TwitterHelper {
+public class TwitterGenerator implements Generator {
 
-    public static List<String> generateListTwits(Properties props) {
+    private Properties properties;
+
+    public TwitterGenerator(Properties props) {
+        this.properties = props;
+    }
+
+    public List<String> generate() {
         List<String> result = new ArrayList<String>();
         String DATE_FORMAT = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         try {
-            Configuration conf = new PropertyConfiguration(props);
+            Configuration conf = new PropertyConfiguration(properties);
             Twitter twitter = new TwitterFactory(conf).getInstance();
             int page = 1;
             int contador = 0;
