@@ -14,10 +14,12 @@ public class MessageGeneratorTest {
         List<String> data = new ArrayList<String>();
         String expected = "hoy";
 
-        String message = MessageGenerator.generateMessage(data);
+        String message = MessageGenerator.generateMessage(data, "emptyTemplateEmailRetriever.vtl",
+                "contentTemplateEmailRetriever.vtl");
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
     }
+
     @Test
     public void shouldUseFullMessageWhenDataIsGiven() {
         List<String> data = new ArrayList<String>();
@@ -28,9 +30,10 @@ public class MessageGeneratorTest {
         data.add("cita 5");
         String expected = "cita 4";
 
-        String message = MessageGenerator.generateMessage(data);
+        String message = MessageGenerator.generateMessage(data, "emptyTemplateEmailRetriever.vtl",
+                "contentTemplateEmailRetriever.vtl");
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
-        
+
     }
 }

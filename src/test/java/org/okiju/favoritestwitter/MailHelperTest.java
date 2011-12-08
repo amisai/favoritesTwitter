@@ -23,7 +23,8 @@ import org.testng.annotations.Test;
  * Unit test for sending email.
  */
 public class MailHelperTest {
-    @Test
+
+    @Test(groups = "functest")
     public void shouldSendAnEmail() {
         String textMessage = "textMessage";
         String subject = "subject";
@@ -37,10 +38,11 @@ public class MailHelperTest {
         EmailBean emailBean = new EmailBean(props);
         emailBean.setRecipient(recipient);
         emailBean.setFrom(from);
-        
+
         MailHelper.sendMessage(textMessage, subject, emailBean);
 
-        assertTrue(checkEmailAccount(subject, textMessage, emailBean.getUsername(), emailBean.getPassword()), "message is not found");
+        assertTrue(checkEmailAccount(subject, textMessage, emailBean.getUsername(), emailBean.getPassword()),
+                "message is not found");
     }
 
     private boolean checkEmailAccount(String subject, String textMessage, final String username, final String password) {
@@ -92,4 +94,3 @@ public class MailHelperTest {
         return result;
     }
 }
-

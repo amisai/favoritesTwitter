@@ -5,8 +5,8 @@
 	<groupId>org.okiju.favoritesTwitter</groupId>
 	<artifactId>FavoritesTwitter</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1-SNAPSHOT</version>
-	<name>FavoritesTwitter</name>
+	<version>0.2-SNAPSHOT</version>
+	<name>PersonalInformationRetrieval</name>
 	<url>http://maven.apache.org</url>
 	<build>
 		<plugins>
@@ -38,6 +38,31 @@
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>failsafe-maven-plugin</artifactId>
+				<version>2.4.3-alpha-1</version>
+				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>target/test-classes/testng-it.xml</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>integration-test</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>verify</id>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.2.1</version>
@@ -71,9 +96,20 @@
 			<version>1.7</version>
 		</dependency>
 		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>5.14.6</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.subethamail</groupId>
+			<artifactId>subethasmtp</artifactId>
+			<version>3.1.4</version>
 			<scope>test</scope>
 		</dependency>
 

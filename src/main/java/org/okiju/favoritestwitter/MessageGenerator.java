@@ -13,15 +13,15 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 public class MessageGenerator {
 
-    public static String generateMessage(List<String> data) {
+    public static String generateMessage(List<String> data, String emptyTemplate, String contentTemplate) {
         String result = "";
         VelocityContext context = new VelocityContext();
         context.put("data", data);
         String templateFile = "";
         if (data.isEmpty()) {
-            templateFile = "emptyTemplate.vtl";
+            templateFile = emptyTemplate;
         } else {
-            templateFile = "contentTemplate.vtl";
+            templateFile = contentTemplate;
         }
         Template template = findTemplate(templateFile);
         if (template != null) {

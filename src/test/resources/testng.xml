@@ -1,16 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Suite1">
-    <parameter name="seed-path" value="src/test/resources/datosIniciales.xml"/>
-    <parameter name="db-driver" value="com.mysql.jdbc.Driver"/>
-    <parameter name="db-url" value="${mysql.url}/citasTest"/>
-    <parameter name="db-user" value="${mysql.username}"/>
-    <parameter name="db-psswrd" value="${mysql.password}"/>
-
     <test name="completo">
         <groups>
             <run>
 <!--                <include name="uno"/> -->
-<!--                <exclude name="functest"/>-->
+               <exclude name="functest"/>
             </run>
         </groups>
         <packages>
