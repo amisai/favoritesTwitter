@@ -6,8 +6,9 @@ import static org.testng.Assert.assertTrue;
 import java.util.List;
 import java.util.Properties;
 
-import org.okiju.favoritestwitter.Generator;
-import org.okiju.favoritestwitter.cli.PropertyHelper;
+import org.okiju.pir.generator.Generator;
+import org.okiju.pir.generator.SentEmailGenerator;
+import org.okiju.pir.util.PropertyHelper;
 import org.testng.annotations.Test;
 
 public class SentEmailGeneratorTest {

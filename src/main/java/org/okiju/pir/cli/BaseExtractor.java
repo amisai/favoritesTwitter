@@ -1,14 +1,14 @@
-package org.okiju.favoritestwitter.cli;
+package org.okiju.pir.cli;
 
 import java.util.List;
 import java.util.Properties;
 
-import org.okiju.favoritestwitter.Generator;
-import org.okiju.favoritestwitter.MessageGenerator;
-import org.okiju.favoritestwitter.util.DateFormatter;
-import org.okiju.favoritestwitter.util.EmailBean;
-import org.okiju.favoritestwitter.util.FileHelper;
-import org.okiju.favoritestwitter.util.MailHelper;
+import org.okiju.pir.generator.Generator;
+import org.okiju.pir.util.DateFormatter;
+import org.okiju.pir.util.EmailBean;
+import org.okiju.pir.util.FileHelper;
+import org.okiju.pir.util.MailHelper;
+import org.okiju.pir.util.MessageGenerator;
 
 public class BaseExtractor {
 
@@ -24,11 +24,13 @@ public class BaseExtractor {
         FileHelper.writeCollectionInDatedFile(prefix, entries);
         return entries;
     }
-    protected static void sendEmail(Properties props, List<String> entries, String prefix, String emptyTemplate, String contentTemplate) {
+
+    protected static void sendEmail(Properties props, List<String> entries, String prefix, String emptyTemplate,
+            String contentTemplate) {
         EmailBean emailBean = new EmailBean(props);
         String message = MessageGenerator.generateMessage(entries, emptyTemplate, contentTemplate);
         String subject = prefix + DateFormatter.formatToday();
-    
+
         MailHelper.sendMessage(message, subject, emailBean);
     }
 

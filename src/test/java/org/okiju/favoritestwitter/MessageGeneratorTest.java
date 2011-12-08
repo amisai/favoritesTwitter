@@ -6,6 +6,7 @@ import static org.testng.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.okiju.pir.util.MessageGenerator;
 import org.testng.annotations.Test;
 
 public class MessageGeneratorTest {

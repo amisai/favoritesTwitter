@@ -1,7 +1,8 @@
-package org.okiju.favoritestwitter.cli;
+package org.okiju.pir.cli;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

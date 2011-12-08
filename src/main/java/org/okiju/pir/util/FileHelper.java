@@ -1,4 +1,4 @@
-package org.okiju.favoritestwitter.util;
+package org.okiju.pir.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.okiju.favoritestwitter.cli.PropertyHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

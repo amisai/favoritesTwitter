@@ -1,4 +1,4 @@
-package org.okiju.favoritestwitter.util;
+package org.okiju.pir.util;
 
 import java.util.Properties;
 

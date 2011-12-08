@@ -1,4 +1,4 @@
-package org.okiju.favoritestwitter.cli;
+package org.okiju.pir.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

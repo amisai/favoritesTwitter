@@ -1,4 +1,4 @@
-package org.okiju.sentemailextractor;
+package org.okiju.pir.generator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,15 +15,12 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeMultipart;
 
-import org.okiju.favoritestwitter.Generator;
-import org.okiju.favoritestwitter.cli.PropertyHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sun.mail.imap.IMAPBodyPart;
 
 public class SentEmailGenerator implements Generator {
-
 
     private static transient Logger logger = LoggerFactory.getLogger(SentEmailGenerator.class);
     private String username;

@@ -1,4 +1,4 @@
-package org.okiju.favoritestwitter;
+package org.okiju.pir.generator;
 
 import java.util.List;
 

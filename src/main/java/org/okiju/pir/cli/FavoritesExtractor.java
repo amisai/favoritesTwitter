@@ -1,11 +1,10 @@
-package org.okiju.favoritestwitter.cli;
+package org.okiju.pir.cli;
 
 import java.util.List;
 import java.util.Properties;
 
-import org.okiju.favoritestwitter.Generator;
-import org.okiju.favoritestwitter.TwitterGenerator;
-import org.okiju.favoritestwitter.util.FileHelper;
+import org.okiju.pir.generator.TwitterGenerator;
+import org.okiju.pir.util.PropertyHelper;
 
 /**
  * CLI of favorites extractor

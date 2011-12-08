@@ -1,15 +1,16 @@
 package org.okiju.favoritestwitter;
 
+import static org.testng.Assert.assertEquals;
+
 import java.util.List;
 import java.util.Properties;
 
-import org.okiju.favoritestwitter.cli.PropertyHelper;
-import org.okiju.favoritestwitter.util.EmailBean;
-import org.okiju.favoritestwitter.util.MailHelper;
+import org.okiju.pir.util.EmailBean;
+import org.okiju.pir.util.MailHelper;
+import org.okiju.pir.util.PropertyHelper;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 public class EmailSenderTest {
     @Test(groups = "functest")

@@ -1,4 +1,4 @@
-package org.okiju.favoritestwitter.util;
+package org.okiju.pir.util;
 
 import java.util.Properties;
 
@@ -10,7 +10,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.okiju.favoritestwitter.cli.PropertyHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
