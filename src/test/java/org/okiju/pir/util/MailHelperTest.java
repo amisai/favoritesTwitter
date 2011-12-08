@@ -1,4 +1,4 @@
-package org.okiju.favoritestwitter;
+package org.okiju.pir.util;
 
 import static org.testng.Assert.assertTrue;
 
@@ -14,9 +14,6 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.search.SubjectTerm;
 
-import org.okiju.pir.util.EmailBean;
-import org.okiju.pir.util.MailHelper;
-import org.okiju.pir.util.PropertyHelper;
 import org.testng.annotations.Test;
 
 /**

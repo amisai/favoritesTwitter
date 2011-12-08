@@ -1,13 +1,10 @@
-package org.okiju.favoritestwitter;
+package org.okiju.pir.util;
 
 import static org.testng.Assert.assertEquals;
 
 import java.util.List;
 import java.util.Properties;
 
-import org.okiju.pir.util.EmailBean;
-import org.okiju.pir.util.MailHelper;
-import org.okiju.pir.util.PropertyHelper;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
 import org.testng.annotations.Test;
