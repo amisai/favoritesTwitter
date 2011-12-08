@@ -4,7 +4,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PropertyHelper {
+
+    private static transient Logger logger = LoggerFactory.getLogger(PropertyHelper.class);
 
     public static Properties loadProperties(String path) {
         return loadProperties(path, propertiesFile);
@@ -16,7 +21,7 @@ public class PropertyHelper {
 
             props.load(new FileInputStream(path + "/" + file));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("error while reading properties", e);
             System.exit(-1);
         }
         return props;

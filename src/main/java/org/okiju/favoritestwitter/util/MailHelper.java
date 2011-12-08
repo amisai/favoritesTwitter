@@ -10,7 +10,13 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.okiju.favoritestwitter.cli.PropertyHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MailHelper {
+
+    private static transient Logger logger = LoggerFactory.getLogger(MailHelper.class);
     private static String port = "465";
 
     public static void setPort(String port) {
@@ -43,6 +49,7 @@ public class MailHelper {
             System.out.println("Done");
 
         } catch (MessagingException e) {
+            logger.error("Error while sending email", e);
             throw new RuntimeException(e);
         }
     }

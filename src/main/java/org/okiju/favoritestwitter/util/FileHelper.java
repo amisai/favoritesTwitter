@@ -7,8 +7,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.okiju.favoritestwitter.cli.PropertyHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileHelper {
+
+    private static transient Logger logger = LoggerFactory.getLogger(FileHelper.class);
+
     public static void writeCollectionInDatedFile(String prefix, List<String> twits) {
         String filename = generateFilename(prefix);
         File file = new File(filename);
@@ -16,7 +22,7 @@ public class FileHelper {
         try {
             FileUtils.writeLines(file, twits);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error while writing dated file", e);
         }
     }
 

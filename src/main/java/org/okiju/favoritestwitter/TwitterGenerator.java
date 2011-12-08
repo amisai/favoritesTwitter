@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -14,6 +17,7 @@ import twitter4j.conf.PropertyConfiguration;
 
 public class TwitterGenerator implements Generator {
 
+    private static transient Logger logger = LoggerFactory.getLogger(TwitterGenerator.class);
     private Properties properties;
 
     public TwitterGenerator(Properties props) {
@@ -39,11 +43,10 @@ public class TwitterGenerator implements Generator {
                 }
                 contador++;
             } while (statuses.size() > 0 && contador < 20);
-            System.out.println("done.");
+            logger.info("done.");
 
         } catch (TwitterException te) {
-            te.printStackTrace();
-            System.out.println("Failed to get favorites: " + te.getMessage());
+            logger.error("Failed to get favorites.", te);
         }
         return result;
     }

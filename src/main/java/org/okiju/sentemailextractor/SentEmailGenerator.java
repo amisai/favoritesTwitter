@@ -16,11 +16,16 @@ import javax.mail.Store;
 import javax.mail.internet.MimeMultipart;
 
 import org.okiju.favoritestwitter.Generator;
+import org.okiju.favoritestwitter.cli.PropertyHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.sun.mail.imap.IMAPBodyPart;
 
 public class SentEmailGenerator implements Generator {
 
+
+    private static transient Logger logger = LoggerFactory.getLogger(SentEmailGenerator.class);
     private String username;
     private String password;
 
@@ -81,7 +86,7 @@ public class SentEmailGenerator implements Generator {
             }
             store.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error while getting emails information", e);
         }
         return messages;
     }

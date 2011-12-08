@@ -10,8 +10,12 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MessageGenerator {
+
+    private static transient Logger logger = LoggerFactory.getLogger(MessageGenerator.class);
 
     public static String generateMessage(List<String> data, String emptyTemplate, String contentTemplate) {
         String result = "";
@@ -33,7 +37,7 @@ public class MessageGenerator {
                 writer.close();
                 result = writer.toString();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error while merging templates", e);
             }
         }
         return result;
