@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.okiju.pir.generator.TemplateInfo;
 import org.testng.annotations.Test;
 
 public class MessageGeneratorTest {
@@ -16,8 +17,7 @@ public class MessageGeneratorTest {
         String expected = "";
 
         Map<String, List<String>> data = null;
-        String message = MessageGenerator.generateMessage(data, "emptyTemplateEmailRetriever.vtl",
-                "contentTemplateEmailRetriever.vtl");
+        String message = MessageGenerator.generateMessage(data, TemplateInfo.favoritesTwitter);
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
     }
@@ -29,8 +29,7 @@ public class MessageGeneratorTest {
         
         Map<String, List<String>> data = new HashMap<String, List<String>>();
         data.put("data", info);
-        String message = MessageGenerator.generateMessage(data, "emptyTemplateEmailRetriever.vtl",
-        "contentTemplateEmailRetriever.vtl");
+        String message = MessageGenerator.generateMessage(data, TemplateInfo.favoritesTwitter);
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
     }
@@ -47,8 +46,7 @@ public class MessageGeneratorTest {
 
         Map<String, List<String>> data = new HashMap<String, List<String>>();
         data.put("data", info);
-        String message = MessageGenerator.generateMessage(data, "emptyTemplateEmailRetriever.vtl",
-                "contentTemplateEmailRetriever.vtl");
+        String message = MessageGenerator.generateMessage(data, TemplateInfo.favoritesTwitter);
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
 

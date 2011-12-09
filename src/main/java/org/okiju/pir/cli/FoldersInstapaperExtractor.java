@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.okiju.pir.generator.InstapaperGenerator;
+import org.okiju.pir.generator.TemplateInfo;
 import org.okiju.pir.util.PropertyHelper;
 
 /**
- * Hello world!
+ * CLI of Instapaper extractor.
  * 
  */
 public class FoldersInstapaperExtractor extends BaseExtractor {
@@ -27,7 +29,6 @@ public class FoldersInstapaperExtractor extends BaseExtractor {
         Map<String, List<String>> context = new HashMap<String, List<String>>();
         context.put("dataQuote", entriesQuotes);
         context.put("data2Do", entries2Do);
-        sendEmail(props, context, "Urls guardadas en Instapaper ", "emptyTemplateInstapaper.vtl",
-                "contentTemplateInstapaper.vtl");
+        sendEmail(props, context, "Urls guardadas en Instapaper ", TemplateInfo.instapaper);
     }
 }

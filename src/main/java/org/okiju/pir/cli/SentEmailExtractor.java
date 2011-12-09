@@ -6,10 +6,11 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.okiju.pir.generator.SentEmailGenerator;
+import org.okiju.pir.generator.TemplateInfo;
 import org.okiju.pir.util.PropertyHelper;
 
 /**
- * Hello world!
+ * CLI of sent email extractor.
  * 
  */
 public class SentEmailExtractor extends BaseExtractor {
@@ -23,7 +24,6 @@ public class SentEmailExtractor extends BaseExtractor {
         List<String> entries = generateEntries(new SentEmailGenerator(props), "ficheroEmails");
         Map<String, List<String>> context = new HashMap<String, List<String>>();
         context.put("data", entries);
-        sendEmail(props, context, "Emails de la semana ", "emptyTemplateEmailRetriever.vtl",
-                "contentTemplateEmailRetriever.vtl");
+        sendEmail(props, context, "Emails de la semana ",TemplateInfo.sentEmail);
     }
 }

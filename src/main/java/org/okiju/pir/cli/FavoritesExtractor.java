@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.okiju.pir.generator.TemplateInfo;
 import org.okiju.pir.generator.TwitterGenerator;
 import org.okiju.pir.util.PropertyHelper;
 
 /**
- * CLI of favorites extractor
+ * CLI of favorites extractor.
  * 
  */
 public class FavoritesExtractor extends BaseExtractor {
@@ -23,7 +24,6 @@ public class FavoritesExtractor extends BaseExtractor {
         List<String> entries = generateEntries(new TwitterGenerator(props), "ficheroTwits");
         Map<String, List<String>> context = new HashMap<String, List<String>>();
         context.put("data", entries);
-        sendEmail(props, context, "Favoritos del día ", "emptyTemplateFavoritesTwitter.vtl",
-                "contentTemplateFavoritesTwitter.vtl");
+        sendEmail(props, context, "Favoritos del día ", TemplateInfo.favoritesTwitter);
     }
 }

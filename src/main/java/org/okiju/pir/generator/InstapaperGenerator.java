@@ -1,10 +1,9 @@
-package org.okiju.pir.cli;
+package org.okiju.pir.generator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.okiju.pir.generator.Generator;
 
 import com.idtmatter.insta4j.client.FullInstaClient;
 import com.idtmatter.insta4j.jaxb.InstaRecordBean;
