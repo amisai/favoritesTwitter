@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.velocity.Template;
@@ -17,16 +18,41 @@ public class MessageGenerator {
 
     private static transient Logger logger = LoggerFactory.getLogger(MessageGenerator.class);
 
-    public static String generateMessage(List<String> data, String emptyTemplate, String contentTemplate) {
+    public static String generateMessage(Map<String, List<String>> data, String emptyTemplate, String contentTemplate) {
         String result = "";
-        VelocityContext context = new VelocityContext();
-        context.put("data", data);
+        if (data != null) {
+            VelocityContext context = new VelocityContext();
+            boolean empty = transferInfo2Context(data, context);
+            String templateFile = chooseTemplate(emptyTemplate, contentTemplate, empty);
+            result = mergeDataWithTemplate(result, context, templateFile);
+        }
+        return result;
+    }
+
+    private static boolean transferInfo2Context(Map<String, List<String>> data, VelocityContext context) {
+        boolean empty = true;
+        
+        for (String key : data.keySet()) {
+            List<String> list = data.get(key);
+            if (!list.isEmpty()) {
+                context.put(key, list);
+                empty = false;
+            }
+        }
+        return empty;
+    }
+
+    private static String chooseTemplate(String emptyTemplate, String contentTemplate, boolean empty) {
         String templateFile = "";
-        if (data.isEmpty()) {
+        if (empty) {
             templateFile = emptyTemplate;
         } else {
             templateFile = contentTemplate;
         }
+        return templateFile;
+    }
+
+    private static String mergeDataWithTemplate(String result, VelocityContext context, String templateFile) {
         Template template = findTemplate(templateFile);
         if (template != null) {
             Writer writer = new StringWriter();
@@ -38,6 +64,34 @@ public class MessageGenerator {
                 result = writer.toString();
             } catch (IOException e) {
                 logger.error("Error while merging templates", e);
+            }
+        }
+        return result;
+    }
+
+    public static String generateMessage(List<String> dataQuotes, List<String> data2Do) {
+        String result = "";
+        VelocityContext context = new VelocityContext();
+        context.put("dataQuote", dataQuotes);
+        context.put("data2Do", data2Do);
+
+        String templateFile = "";
+        if (dataQuotes.isEmpty() && data2Do.isEmpty()) {
+            templateFile = "emptyTemplateInstaper.vtl";
+        } else {
+            templateFile = "contentTemplateInstapaper.vtl";
+        }
+        Template template = findTemplate(templateFile);
+        if (template != null) {
+            Writer writer = new StringWriter();
+
+            template.merge(context, writer);
+            try {
+                writer.flush();
+                writer.close();
+                result = writer.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return result;

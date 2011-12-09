@@ -1,6 +1,8 @@
 package org.okiju.pir.cli;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.okiju.pir.generator.SentEmailGenerator;
@@ -19,8 +21,9 @@ public class SentEmailExtractor extends BaseExtractor {
         Properties props = PropertyHelper.loadProperties(path);
 
         List<String> entries = generateEntries(new SentEmailGenerator(props), "ficheroEmails");
-
-        sendEmail(props, entries, "Emails de la semana ", "emptyTemplateEmailRetriever.vtl",
+        Map<String, List<String>> context = new HashMap<String, List<String>>();
+        context.put("data", entries);
+        sendEmail(props, context, "Emails de la semana ", "emptyTemplateEmailRetriever.vtl",
                 "contentTemplateEmailRetriever.vtl");
     }
 }

@@ -1,6 +1,7 @@
 package org.okiju.pir.cli;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.okiju.pir.generator.Generator;
@@ -25,7 +26,7 @@ public class BaseExtractor {
         return entries;
     }
 
-    protected static void sendEmail(Properties props, List<String> entries, String prefix, String emptyTemplate,
+    protected static void sendEmail(Properties props, Map<String, List<String>> entries, String prefix, String emptyTemplate,
             String contentTemplate) {
         EmailBean emailBean = new EmailBean(props);
         String message = MessageGenerator.generateMessage(entries, emptyTemplate, contentTemplate);
