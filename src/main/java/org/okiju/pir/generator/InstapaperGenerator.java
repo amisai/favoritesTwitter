@@ -16,8 +16,8 @@ public class InstapaperGenerator implements Generator {
     public InstapaperGenerator(Properties props, String folder, boolean archiveBookmark) {
         this.folder = folder;
         this.archiveBookmark = archiveBookmark;
-        String username = props.getProperty("username");
-        String password = props.getProperty("password");
+        String username = props.getProperty("instapaper.username");
+        String password = props.getProperty("instapaper.password");
         this.client = FullInstaClient.create(username, password);
 
     }

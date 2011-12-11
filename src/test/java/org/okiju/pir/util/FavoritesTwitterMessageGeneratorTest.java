@@ -37,20 +37,22 @@ public class FavoritesTwitterMessageGeneratorTest {
 
     @Test
     public void shouldUseFullMessageWhenDataIsGiven() {
-        List<String> info = new ArrayList<String>();
-        info.add("cita 1");
-        info.add("cita 2");
-        info.add("cita 3");
-        info.add("cita 4");
-        info.add("cita 5");
-        String expected = "Mostrando los favoritos de hoy:\n\ncita 1\ncita 2\ncita 3\ncita 4\ncita 5\n";
+        List<String> info1 = new ArrayList<String>();
+        List<String> info2 = new ArrayList<String>();
+        info1.add("cita 1");
+        info1.add("cita 2");
+        info2.add("cita 3");
+        info2.add("cita 4");
+        info2.add("cita 5");
+        String expected = "Mostrando los favoritos de hoy:\n\ncita 1\ncita 2\n\nCitas:\ncita 3\ncita 4\ncita 5\n";
 
         Map<String, List<String>> data = new HashMap<String, List<String>>();
-        data.put("data", info);
+        data.put("data", info1);
+        data.put("dataQuote", info2);
+        
         String message = MessageGenerator.generateMessage(data, TemplateInfo.favoritesTwitter);
         assertNotNull(message, "no message is generated");
         
-        assertEquals(message.length(), expected.length(), "expected message is not generated");
         assertEquals(message, expected, "expected message is not generated");
     }
 }
