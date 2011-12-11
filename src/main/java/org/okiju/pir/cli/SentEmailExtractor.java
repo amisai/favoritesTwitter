@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.okiju.pir.generator.SentEmailGenerator;
-import org.okiju.pir.generator.TemplateInfo;
+import org.okiju.pir.model.TemplateInfo;
 import org.okiju.pir.util.PropertyHelper;
 
 /**

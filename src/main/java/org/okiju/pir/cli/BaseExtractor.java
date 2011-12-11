@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.okiju.pir.generator.Generator;
-import org.okiju.pir.generator.TemplateInfo;
+import org.okiju.pir.model.TemplateInfo;
 import org.okiju.pir.util.DateFormatter;
 import org.okiju.pir.util.EmailBean;
 import org.okiju.pir.util.FileHelper;

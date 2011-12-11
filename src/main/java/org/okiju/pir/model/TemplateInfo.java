@@ -1,4 +1,4 @@
-package org.okiju.pir.generator;
+package org.okiju.pir.model;
 
 public enum TemplateInfo {
     favoritesTwitter("emptyTemplateFavoritesTwitter.vtl", "contentTemplateFavoritesTwitter.vtl"), sentEmail(
