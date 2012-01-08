@@ -1,7 +1,7 @@
 package org.okiju.pir.generator;
 
-import java.util.List;
+import java.util.Set;
 
 public interface Generator {
-    List<String> generate();
+    Set<String> generate();
 }

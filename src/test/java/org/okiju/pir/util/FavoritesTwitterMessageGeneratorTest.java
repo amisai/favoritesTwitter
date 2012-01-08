@@ -4,10 +4,11 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.okiju.pir.model.TemplateInfo;
 import org.testng.annotations.Test;
@@ -17,7 +18,7 @@ public class FavoritesTwitterMessageGeneratorTest {
     public void shouldUseEmptyMessageWhenNoMapIsGiven() {
         String expected = "";
 
-        Map<String, List<String>> data = null;
+        Map<String, Set<String>> data = null;
         String message = MessageGenerator.generateMessage(data, TemplateInfo.favoritesTwitter);
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
@@ -25,10 +26,10 @@ public class FavoritesTwitterMessageGeneratorTest {
 
     @Test
     public void shouldUseEmptyMessageWhenNoDataIsGiven() {
-        List<String> info = new ArrayList<String>();
+        Set<String> info = new HashSet<String>();
         String expected = "hoy";
 
-        Map<String, List<String>> data = new HashMap<String, List<String>>();
+        Map<String, Set<String>> data = new HashMap<String, Set<String>>();
         data.put("data", info);
         String message = MessageGenerator.generateMessage(data, TemplateInfo.favoritesTwitter);
         assertNotNull(message, "no message is generated");
@@ -37,16 +38,17 @@ public class FavoritesTwitterMessageGeneratorTest {
 
     @Test
     public void shouldUseFullMessageWhenDataIsGiven() {
-        List<String> info1 = new ArrayList<String>();
-        List<String> info2 = new ArrayList<String>();
-        info1.add("cita 1");
+        Set<String> info1 = new TreeSet<String>();
+        Set<String> info2 = new TreeSet<String>();
         info1.add("cita 2");
+        info1.add("cita 1");
+ 
         info2.add("cita 3");
         info2.add("cita 4");
         info2.add("cita 5");
         String expected = "Mostrando los favoritos de hoy:\n\ncita 1\ncita 2\n\nCitas:\ncita 3\ncita 4\ncita 5\n";
 
-        Map<String, List<String>> data = new HashMap<String, List<String>>();
+        Map<String, Set<String>> data = new HashMap<String, Set<String>>();
         data.put("data", info1);
         data.put("dataQuote", info2);
         

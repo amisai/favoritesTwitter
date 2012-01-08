@@ -5,8 +5,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -33,8 +35,8 @@ public class SentEmailGenerator implements Generator {
     }
 
     @Override
-    public List<String> generate() {
-        List<String> messages = new ArrayList<String>();
+    public Set<String> generate() {
+        Set<String> messages = new HashSet<String>();
         Properties props = new Properties();
         props.setProperty("mail.store.protocol", "imaps");
         Session session = Session.getInstance(props, null);

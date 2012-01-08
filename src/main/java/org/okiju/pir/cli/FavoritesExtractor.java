@@ -1,9 +1,9 @@
 package org.okiju.pir.cli;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.okiju.pir.generator.InstapaperGenerator;
 import org.okiju.pir.generator.TwitterGenerator;
@@ -22,12 +22,12 @@ public class FavoritesExtractor extends BaseExtractor {
         String path = args[0];
         Properties props = PropertyHelper.loadProperties(path);
 
-        Map<String, List<String>> context = new HashMap<String, List<String>>();
+        Map<String, Set<String>> context = new HashMap<String, Set<String>>();
 
-        List<String> entries = generateEntries(new TwitterGenerator(props), "ficheroTwits");
+        Set<String> entries = generateEntries(new TwitterGenerator(props), "ficheroTwits");
         context.put("data", entries);
 
-        List<String> entriesQuotes = generateEntries(new InstapaperGenerator(props, "Citas", false),
+        Set<String> entriesQuotes = generateEntries(new InstapaperGenerator(props, "Citas", true),
                 "ficheroInstapaperQuotes");
         context.put("dataQuote", entriesQuotes);
         sendEmail(props, context, "Favoritos del día ", TemplateInfo.favoritesTwitter);

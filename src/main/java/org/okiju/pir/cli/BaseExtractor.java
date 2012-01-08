@@ -1,8 +1,8 @@
 package org.okiju.pir.cli;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.okiju.pir.generator.Generator;
 import org.okiju.pir.model.TemplateInfo;
@@ -21,13 +21,13 @@ public class BaseExtractor {
         }
     }
 
-    protected static List<String> generateEntries(Generator generator, String prefix) {
-        List<String> entries = generator.generate();
+    protected static Set<String> generateEntries(Generator generator, String prefix) {
+        Set<String> entries = generator.generate();
         FileHelper.writeCollectionInDatedFile(prefix, entries);
         return entries;
     }
 
-    protected static void sendEmail(Properties props, Map<String, List<String>> entries, String prefix, TemplateInfo templates) {
+    protected static void sendEmail(Properties props, Map<String, Set<String>> entries, String prefix, TemplateInfo templates) {
         EmailBean emailBean = new EmailBean(props);
         String message = MessageGenerator.generateMessage(entries, templates);
         String subject = prefix + DateFormatter.formatToday();

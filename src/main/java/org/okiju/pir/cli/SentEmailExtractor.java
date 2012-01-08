@@ -1,9 +1,9 @@
 package org.okiju.pir.cli;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.okiju.pir.generator.InstapaperGenerator;
 import org.okiju.pir.generator.SentEmailGenerator;
@@ -22,12 +22,12 @@ public class SentEmailExtractor extends BaseExtractor {
         String path = args[0];
         Properties props = PropertyHelper.loadProperties(path);
 
-        Map<String, List<String>> context = new HashMap<String, List<String>>();
+        Map<String, Set<String>> context = new HashMap<String, Set<String>>();
 
-        List<String> entries = generateEntries(new SentEmailGenerator(props), "ficheroEmails");
+        Set<String> entries = generateEntries(new SentEmailGenerator(props), "ficheroEmails");
         context.put("data", entries);
 
-        List<String> entries2Do = generateEntries(new InstapaperGenerator(props, "Para hacer", false),
+        Set<String> entries2Do = generateEntries(new InstapaperGenerator(props, "Para hacer", true, "10"),
                 "ficheroInstapaper2Do");
         context.put("data2Do", entries2Do);
         

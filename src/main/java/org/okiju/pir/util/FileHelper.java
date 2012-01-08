@@ -3,8 +3,8 @@ package org.okiju.pir.util;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ public class FileHelper {
 
     private static transient Logger logger = LoggerFactory.getLogger(FileHelper.class);
 
-    public static void writeCollectionInDatedFile(String prefix, List<String> twits) {
+    public static void writeCollectionInDatedFile(String prefix, Collection<String> twits) {
         String filename = generateFilename(prefix);
         File file = new File(filename);
 

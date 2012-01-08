@@ -6,6 +6,7 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -19,7 +20,7 @@ public class MessageGenerator {
 
     private static transient Logger logger = LoggerFactory.getLogger(MessageGenerator.class);
 
-    public static String generateMessage(Map<String, List<String>> data, TemplateInfo template) {
+    public static String generateMessage(Map<String, Set<String>> data, TemplateInfo template) {
         String result = "";
         if (data != null) {
             VelocityContext context = new VelocityContext();
@@ -30,11 +31,11 @@ public class MessageGenerator {
         return result;
     }
 
-    private static boolean transferInfo2Context(Map<String, List<String>> data, VelocityContext context) {
+    private static boolean transferInfo2Context(Map<String, Set<String>> data, VelocityContext context) {
         boolean empty = true;
         
         for (String key : data.keySet()) {
-            List<String> list = data.get(key);
+            Set<String> list = data.get(key);
             if (!list.isEmpty()) {
                 context.put(key, list);
                 empty = false;
@@ -65,34 +66,6 @@ public class MessageGenerator {
                 result = writer.toString();
             } catch (IOException e) {
                 logger.error("Error while merging templates", e);
-            }
-        }
-        return result;
-    }
-
-    public static String generateMessage(List<String> dataQuotes, List<String> data2Do) {
-        String result = "";
-        VelocityContext context = new VelocityContext();
-        context.put("dataQuote", dataQuotes);
-        context.put("data2Do", data2Do);
-
-        String templateFile = "";
-        if (dataQuotes.isEmpty() && data2Do.isEmpty()) {
-            templateFile = "emptyTemplateInstaper.vtl";
-        } else {
-            templateFile = "contentTemplateInstapaper.vtl";
-        }
-        Template template = findTemplate(templateFile);
-        if (template != null) {
-            Writer writer = new StringWriter();
-
-            template.merge(context, writer);
-            try {
-                writer.flush();
-                writer.close();
-                result = writer.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
         return result;

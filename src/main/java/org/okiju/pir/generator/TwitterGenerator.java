@@ -1,9 +1,10 @@
 package org.okiju.pir.generator;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,8 @@ public class TwitterGenerator implements Generator {
         this.properties = props;
     }
 
-    public List<String> generate() {
-        List<String> result = new ArrayList<String>();
+    public Set<String> generate() {
+        Set<String> result = new HashSet<String>();
         String DATE_FORMAT = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         try {
