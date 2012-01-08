@@ -30,6 +30,6 @@ public class FavoritesExtractor extends BaseExtractor {
         Set<String> entriesQuotes = generateEntries(new InstapaperGenerator(props, "Citas", true),
                 "ficheroInstapaperQuotes");
         context.put("dataQuote", entriesQuotes);
-        sendEmail(props, context, "Favoritos del día ", TemplateInfo.favoritesTwitter);
+        sendEmail(props, context, "Favoritos del dia ", TemplateInfo.favoritesTwitter);
     }
 }
