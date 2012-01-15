@@ -1,23 +1,45 @@
-Introducción
-Soy un lurker, lo reconozco. Y lo de estar al día de páginas e ideas en Twitter es complicado. No siempre tienes tiempo para visitar los enlaces que te sugieren, no puedes copiar la idea que acabas de leer... Así que empiezas a marcar twits como favoritos, esperando encontrar el momento para revisarlos, pero no siempre es posible, y la tarea manual es bastante aburrida, así que necesito una aplicación para recuperar de manera automática los favoritos que voy marcando en Twitter. Y así surgió esta aplicación java, aprovechando twitter4j y algo de tiempo libre.
+Introduction
+============
+OK, I accept it, I'm a lurker. 
 
-La aplicación recupera todos los favoritos de tu cuenta de Twitter, borrandolos como favoritos, y enviandolo en un email.
+And being up to date of pages and ideas in Twitter it's complicated. Because (as everybody out there) I don't always have the time to visit all interesting links, nor I can't copy every interesting idea I've just read...
 
-Configuración de la aplicación
-Son necesarios 2 ficheros de configuración, uno contiene la información de la(s) cuenta(s) de correo desde/a la que enviarás el correo resumen, y otro que contendrá información para acceder a tu cuenta de twitter.
+So I started marking interesting twits as favorites, looking for free time to check them, but this manual task was boring, so I realize that I needed a program to retrieve, in a automatic way, all favorites I marked in Twitter. So this java application get born, using [twitter4j][0] and a bit of spare time.
 
-El fichero de configuración del correo se llama email.props. Por razones obvias, no proporciono mi email.props, sino un ejemplo. El fichero está en src/test/resources/email.props_sample, deberás rellenarlo y renombrarlo a email.props.
+This program retrieve all favorites of your Twitter acount, deleting as favorites and send them to you in an email (as storing them in a local file, just in case).
 
-El fichero de configuración de la cuenta de twitter se llama twitter4j.properties. Como en el caso anterior, no proporciono mi twitter4j.properties, sino un ejemplo. El fichero está en src/test/resources/twitter4j.properties_sample. Deberás renombrarlo a twitter4j.properties y seguir los siguientes pasos:
+I'm adding new functionalities, such as retrieving information also from some Instapaper folders, ad testing which retreival options (timing, information combination, ...) fit best with my life...
 
-Lo primero que hay que hacer es registrar la aplicación en Twitter (https://dev.twitter.com/apps/new),dando todos los datos necesarios (nombre, descripción,...) Es importante conceder permisos de lectura y escritura.
+I doubt that, like it is right now, fits to you, but maybe gives you an starting point to get your information in a more comfortable way.
 
-Una vez que tenemos consumer key y consumer secret, los escribimos en twitter4j.properties y ejecutamos 'mvn assembly:assembly', con lo que obtendremos un fichero .jar en target.
+(Classic) disclaimer: This program has been in "production" for a while, programmed in a daily cron, and it's been working properly for me, but I don't accept any responsability or damage you suffer if decide to use it...
 
-Al ejecutar dicho fichero con 'java -cp target/FavoritesTwitter-0.1-SNAPSHOT-jar-with-dependencies.jar  org.okiju.favoritestwitter.OAuthSetup' se nos proporcionara una URL, que ...
 
-con esto habremos conseguido un accessToken, que guardaremos en el fichero twitter4j.properties que hemos usado antes.
+Application configuration
+=========================
+There is only one configuration file, containing necessary information to access to your Twitter account, and also information of the email account that'll receive email with all twits.
 
-Ademas, es necesario añadir la dirección de correo en la que se desea recibir el email con los favoritos recuperados.
+Due to obvious security reasons, I'm providing only a sample file, residing in `src/test/resources/twitter4j.properties_sample`.
 
-Para invocar a la aplicación será necesario 'java -jar ...'. Si todo el proceso es correcto (sin problemas de red,...) a aplicación generara un fichero con los favoritos recogidos y enviara un email con la misma información.
+Configuring twitter access
+----------------------------------
+First thing is rename file twitter4j.properties_sample to twitter4j.properties and apply following steps (copied from <http://twitter4j.org/en/code-examples.html#oauth>):
+
+First, you have to register the application in [Twitter][1], providing all necessary data (application name, description, ...). It's important to give write and read permissions.
+
+Once we have consumer key y consumer secret, we'll write them down in twitter4j.properties file, and invoke `mvn assembly:assembly`, in order to get a .jar file in  target folder.
+
+When executed that file with `java -cp target/FavoritesTwitter-0.1-SNAPSHOT-jar-with-dependencies.jar  org.okiju.favoritestwitter.OAuthSetup`, a dialog will start
+* the program'll give us an URL, 
+* when used in a browser, this URL will show us a number, 
+* we'll give previous number to our program, receiving an accessToken in return, 
+* we'll store accessToken in twitter4j.properties file.
+
+Finally, it's necessary to add an email address where to receive all emails.
+
+Invocation
+==========
+To invoke application you'll have to invoke with `java -jar target/FavoritesTwitter-0.1-SNAPSHOT-jar-with-dependencies.jar`.
+
+[0]: http://twitter4j.org/
+[1]: https://dev.twitter.com/apps/new
