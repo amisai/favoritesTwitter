@@ -17,6 +17,7 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeMultipart;
 
+import org.okiju.pir.model.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,14 +30,13 @@ public class SentEmailGenerator implements Generator {
     private String password;
 
     public SentEmailGenerator(Properties props) {
-
-        username = props.getProperty("username");
-        password = props.getProperty("password");
+        username = props.getProperty("email.username");
+        password = props.getProperty("email.password");
     }
 
     @Override
-    public Set<String> generate() {
-        Set<String> messages = new HashSet<String>();
+    public Set<Entry> generate() {
+        Set<Entry> messages = new HashSet<Entry>();
         Properties props = new Properties();
         props.setProperty("mail.store.protocol", "imaps");
         Session session = Session.getInstance(props, null);
@@ -81,7 +81,7 @@ public class SentEmailGenerator implements Generator {
                 dataContent = dataContent.replace("Abel", "");
 
                 abstractMsg.append(msg.getSubject()).append("\n").append(dataContent).append("\n");
-                messages.add(abstractMsg.toString());
+                messages.add(new Entry(abstractMsg.toString()));
             }
             store.close();
         } catch (Exception e) {

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.okiju.pir.model.Entry;
+
 import com.idtmatter.insta4j.client.FullInstaClient;
 import com.idtmatter.insta4j.jaxb.InstaRecordBean;
 
@@ -29,8 +31,8 @@ public class InstapaperGenerator implements Generator {
         this.limit = limit;
     }
 
-    public Set<String> generate() {
-        Set<String> result = new HashSet<String>();
+    public Set<Entry> generate() {
+        Set<Entry> result = new HashSet<Entry>();
         List<InstaRecordBean> folders = client.listFolders();
         for (InstaRecordBean instafolder : folders) {
             if (folder.equals(instafolder.title)) {
@@ -38,7 +40,7 @@ public class InstapaperGenerator implements Generator {
                 for (InstaRecordBean bookmark : bookmarks) {
                     if ("bookmark".equals(bookmark.type)) {
                         System.out.println("found bookmark: " + bookmark);
-                        result.add(bookmark.url);
+                        result.add(new Entry(bookmark.url));
                         if (archiveBookmark) {
                             client.archiveBookmark(bookmark.bookmark_id);
                         }

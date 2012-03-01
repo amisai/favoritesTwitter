@@ -7,7 +7,11 @@ oauth.accessToken=accessToken
 oauth.accessTokenSecret=tokenSecret
 
 #email configuration
-from=sender@mail.com
-recipient=receiver@mail.com
-username=username@mail.com
-password=passwd
+email.from=sender@mail.com
+email.recipient=receiver@mail.com
+email.username=username@mail.com
+email.password=passwd
+
+#pinboard configuration
+pinboard.username=username
+pinboard.password=passwd

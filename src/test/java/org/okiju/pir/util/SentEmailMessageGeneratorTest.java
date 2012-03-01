@@ -40,16 +40,18 @@ public class SentEmailMessageGeneratorTest {
     public void shouldUseFullMessageWhenDataIsGiven() {
         Set<String> info1 = new TreeSet<String>();
         Set<String> info2 = new TreeSet<String>();
+        Set<String> info3 = new TreeSet<String>();
         info1.add("cita 1");
         info1.add("cita 2");
-        info1.add("cita 3");
+        info2.add("cita 3");
         info2.add("cita 4");
-        info2.add("cita 5");
-        String expected = "Resumen de correos auto-enviados:\n\ncita 1\ncita 2\ncita 3\n\nPara hacer:\ncita 4\ncita 5\n";
+        info3.add("cita 5");
+        String expected = "Resumen de correos auto-enviados:\n\ncita 1\ncita 2\ncita 3\ncita 4\n\nPara hacer:\ncita 5\n";
 
         Map<String, Set<String>> data = new HashMap<String, Set<String>>();
         data.put("data", info1);
-        data.put("data2Do", info2);
+        data.put("dataPinboard", info2);
+        data.put("data2Do", info3);
         String message = MessageGenerator.generateMessage(data, TemplateInfo.sentEmail);
         assertNotNull(message, "no message is generated");
         

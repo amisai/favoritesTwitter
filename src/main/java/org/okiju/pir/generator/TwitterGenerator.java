@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.okiju.pir.model.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,8 +26,8 @@ public class TwitterGenerator implements Generator {
         this.properties = props;
     }
 
-    public Set<String> generate() {
-        Set<String> result = new HashSet<String>();
+    public Set<Entry> generate() {
+        Set<Entry> result = new HashSet<Entry>();
         String DATE_FORMAT = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         try {
@@ -38,8 +39,9 @@ public class TwitterGenerator implements Generator {
             do {
                 statuses = twitter.getFavorites(page);
                 for (Status status : statuses) {
-                    result.add(status.getText() + " @ " + status.getUser().getScreenName() + " @ "
-                            + sdf.format(status.getCreatedAt()));
+                    String text = status.getText() + " @ " + status.getUser().getScreenName() + " @ "
+                    + sdf.format(status.getCreatedAt());
+                    result.add(new Entry(text));
                     twitter.destroyFavorite(status.getId());
                 }
                 contador++;

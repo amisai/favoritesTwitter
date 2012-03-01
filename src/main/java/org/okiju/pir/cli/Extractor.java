@@ -1,5 +1,6 @@
 package org.okiju.pir.cli;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -7,7 +8,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.okiju.pir.generator.Generator;
 import org.okiju.pir.model.Entry;
 import org.okiju.pir.model.TemplateInfo;
 import org.okiju.pir.util.DateFormatter;
@@ -16,35 +16,39 @@ import org.okiju.pir.util.FileHelper;
 import org.okiju.pir.util.MailHelper;
 import org.okiju.pir.util.MessageGenerator;
 
-public class BaseExtractor {
+public class Extractor {
 
-    protected static void checkArgs(String nameApp, String[] args) {
-        if (args.length < 1) {
-            System.out.println("Use: " + nameApp + " configPath");
-            System.exit(1);
-        }
+    private Properties props;
+    private List<ExtractionBean> extractions;
+    private String subjectEmail;
+    private TemplateInfo templateEmail;
+
+    Extractor(Properties props, List<ExtractionBean> extractions, String SubjectEmail, TemplateInfo templateEmail) {
+        this.props = props;
+        this.extractions = extractions;
+        this.subjectEmail = SubjectEmail;
+        this.templateEmail = templateEmail;
     }
 
-    protected static void doExtraction(Properties props, List<ExtractionBean> extractions, String SubjectEmail,
-            TemplateInfo templateEmail) {
+    public void execute() {
+
         Map<String, Set<String>> context = new HashMap<String, Set<String>>();
 
         for (ExtractionBean extraction : extractions) {
-            context.put(extraction.getContext(),
-                    asStringSet(generateEntries(extraction)));
+            context.put(extraction.getContext(), asStringSet(generateEntries(extraction)));
         }
 
-        sendEmail(props, context, SubjectEmail, templateEmail);
+        sendEmail(props, context, subjectEmail, templateEmail);
+
     }
-    
-    private static Set<Entry> generateEntries(ExtractionBean extraction) {
+
+    private Set<Entry> generateEntries(ExtractionBean extraction) {
         Set<Entry> entries = extraction.getGenerator().generate();
         FileHelper.writeCollectionInDatedFile(extraction.getFilename(), entries);
         return entries;
     }
 
-    private static void sendEmail(Properties props, Map<String, Set<String>> entries, String prefix,
-            TemplateInfo templates) {
+    private void sendEmail(Properties props, Map<String, Set<String>> entries, String prefix, TemplateInfo templates) {
         EmailBean emailBean = new EmailBean(props);
         String message = MessageGenerator.generateMessage(entries, templates);
         String subject = prefix + DateFormatter.formatToday();
@@ -52,7 +56,7 @@ public class BaseExtractor {
         MailHelper.sendMessage(message, subject, emailBean);
     }
 
-    private static Set<String> asStringSet(Set<Entry> entries) {
+    private Set<String> asStringSet(Set<Entry> entries) {
         Set<String> result = new HashSet<String>();
         for (Entry entry : entries) {
             result.add(entry.getText());
@@ -60,3 +64,4 @@ public class BaseExtractor {
         return result;
     }
 }
+

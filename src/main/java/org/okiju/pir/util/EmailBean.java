@@ -4,10 +4,10 @@ import java.util.Properties;
 
 public class EmailBean {
     public EmailBean(Properties props) {
-        username = props.getProperty("username");
-        password = props.getProperty("password");
-        recipient = props.getProperty("recipient");
-        from = props.getProperty("from");
+        username = props.getProperty("email.username");
+        password = props.getProperty("email.password");
+        recipient = props.getProperty("email.recipient");
+        from = props.getProperty("email.from");
     }
 
     public String getUsername() {
