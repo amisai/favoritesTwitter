@@ -1,9 +1,8 @@
 package org.okiju.pir.model;
 
 public enum TemplateInfo {
-    favoritesTwitter("emptyTemplateFavoritesTwitter.vtl", "contentTemplateFavoritesTwitter.vtl"), 
-    sentEmail("emptyTemplateEmailRetriever.vtl", "contentTemplateEmailRetriever.vtl"), 
-    instapaper("emptyTemplateInstapaper.vtl", "contentTemplateInstapaper.vtl");
+    dailyTemplate("emptyDailyTemplate.vtl", "contentDailyTemplate.vtl"), 
+    weeklyTemplate("emptyWeeklyTemplate.vtl", "contentWeeklyTemplate.vtl");
 
     private String normalTemplate;
     private String emptyTemplate;

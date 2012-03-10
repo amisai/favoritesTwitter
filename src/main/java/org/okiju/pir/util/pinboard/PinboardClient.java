@@ -1,4 +1,4 @@
-package org.okiju.pir.pinboard;
+package org.okiju.pir.util.pinboard;
 
 import java.net.URI;
 import java.util.Properties;

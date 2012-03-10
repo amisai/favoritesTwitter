@@ -1,4 +1,4 @@
-package org.okiju.pir.generator;
+package org.okiju.pir.extractor;
 
 import java.util.HashSet;
 import java.util.List;
@@ -10,13 +10,13 @@ import org.okiju.pir.model.Entry;
 import com.idtmatter.insta4j.client.FullInstaClient;
 import com.idtmatter.insta4j.jaxb.InstaRecordBean;
 
-public class InstapaperGenerator implements Generator {
+public class InstapaperExtractor implements Extractor {
     private boolean archiveBookmark;
     private String folder;
     private FullInstaClient client;
     private String limit;
 
-    public InstapaperGenerator(Properties props, String folder, boolean archiveBookmark) {
+    public InstapaperExtractor(Properties props, String folder, boolean archiveBookmark) {
         this.folder = folder;
         this.archiveBookmark = archiveBookmark;
         this.limit="";
@@ -26,12 +26,12 @@ public class InstapaperGenerator implements Generator {
 
     }
 
-    public InstapaperGenerator(Properties props, String folder, boolean archiveBookmark, String limit) {
+    public InstapaperExtractor(Properties props, String folder, boolean archiveBookmark, String limit) {
         this(props, folder, archiveBookmark);
         this.limit = limit;
     }
 
-    public Set<Entry> generate() {
+    public Set<Entry> extract() {
         Set<Entry> result = new HashSet<Entry>();
         List<InstaRecordBean> folders = client.listFolders();
         for (InstaRecordBean instafolder : folders) {
@@ -40,7 +40,7 @@ public class InstapaperGenerator implements Generator {
                 for (InstaRecordBean bookmark : bookmarks) {
                     if ("bookmark".equals(bookmark.type)) {
                         System.out.println("found bookmark: " + bookmark);
-                        result.add(new Entry(bookmark.url));
+                        result.add(new Entry(bookmark.title, bookmark.url, null));
                         if (archiveBookmark) {
                             client.archiveBookmark(bookmark.bookmark_id);
                         }

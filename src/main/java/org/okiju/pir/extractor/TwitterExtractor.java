@@ -1,4 +1,4 @@
-package org.okiju.pir.generator;
+package org.okiju.pir.extractor;
 
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
@@ -17,16 +17,18 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.PropertyConfiguration;
 
-public class TwitterGenerator implements Generator {
+public class TwitterExtractor implements Extractor {
 
-    private static transient Logger logger = LoggerFactory.getLogger(TwitterGenerator.class);
+    private static transient Logger logger = LoggerFactory.getLogger(TwitterExtractor.class);
     private Properties properties;
+    private boolean destroyFavorites;
 
-    public TwitterGenerator(Properties props) {
+    public TwitterExtractor(Properties props, boolean destroyFavorites) {
         this.properties = props;
+        this.destroyFavorites = destroyFavorites;
     }
 
-    public Set<Entry> generate() {
+    public Set<Entry> extract() {
         Set<Entry> result = new HashSet<Entry>();
         String DATE_FORMAT = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
@@ -41,8 +43,10 @@ public class TwitterGenerator implements Generator {
                 for (Status status : statuses) {
                     String text = status.getText() + " @ " + status.getUser().getScreenName() + " @ "
                     + sdf.format(status.getCreatedAt());
-                    result.add(new Entry(text));
-                    twitter.destroyFavorite(status.getId());
+                    result.add(new Entry(text, "", null));
+                    if (destroyFavorites) {
+                        twitter.destroyFavorite(status.getId());
+                    }
                 }
                 contador++;
             } while (statuses.size() > 0 && contador < 20);

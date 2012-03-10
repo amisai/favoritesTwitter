@@ -6,7 +6,6 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -20,7 +19,7 @@ public class MessageGenerator {
 
     private static transient Logger logger = LoggerFactory.getLogger(MessageGenerator.class);
 
-    public static String generateMessage(Map<String, Set<String>> data, TemplateInfo template) {
+    public static String generateMessage(Map<String, List<String>> data, TemplateInfo template) {
         String result = "";
         if (data != null) {
             VelocityContext context = new VelocityContext();
@@ -31,11 +30,11 @@ public class MessageGenerator {
         return result;
     }
 
-    private static boolean transferInfo2Context(Map<String, Set<String>> data, VelocityContext context) {
+    private static boolean transferInfo2Context(Map<String, List<String>> data, VelocityContext context) {
         boolean empty = true;
         
         for (String key : data.keySet()) {
-            Set<String> list = data.get(key);
+            List<String> list = data.get(key);
             if (!list.isEmpty()) {
                 context.put(key, list);
                 empty = false;

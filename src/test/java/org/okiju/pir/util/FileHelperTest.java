@@ -13,7 +13,7 @@ public class FileHelperTest {
     @Test
     public void shouldCreateAFileWithInfo() {
         List<Entry> data = new ArrayList<Entry>();
-        data.add(new Entry("data"));
+        data.add(new Entry("data", "", null));
         String prefix = "./target/prefix";
         File file = new File(FileHelper.generateFilename(prefix));
         file.delete();

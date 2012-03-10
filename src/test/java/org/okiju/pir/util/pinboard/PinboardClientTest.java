@@ -1,4 +1,4 @@
-package org.okiju.pir.pinboard;
+package org.okiju.pir.util.pinboard;
 
 import static org.testng.Assert.*;
 
@@ -14,7 +14,7 @@ import org.okiju.pir.util.PropertyHelper;
 import org.testng.annotations.Test;
 
 public class PinboardClientTest {
-    @Test
+    @Test(groups = "functest")
     public void shouldGetBookmarksInfo() {
         String path = "./target/test-classes/";
 

@@ -4,55 +4,55 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.okiju.pir.model.TemplateInfo;
 import org.testng.annotations.Test;
 
-public class SentEmailMessageGeneratorTest {
+public class DailyMessageGeneratorTest {
     @Test
     public void shouldUseEmptyMessageWhenNoMapIsGiven() {
         String expected = "";
 
-        Map<String, Set<String>> data = null;
-        String message = MessageGenerator.generateMessage(data, TemplateInfo.sentEmail);
+        Map<String, List<String>> data = null;
+        String message = MessageGenerator.generateMessage(data, TemplateInfo.dailyTemplate);
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
     }
 
+    
     @Test
     public void shouldUseEmptyMessageWhenNoDataIsGiven() {
-        Set<String> info = new HashSet<String>();
+        List<String> info = new ArrayList<String>();
         String expected = "hoy";
 
-        Map<String, Set<String>> data = new HashMap<String, Set<String>>();
+        Map<String, List<String>> data = new HashMap<String, List<String>>();
         data.put("data", info);
-        String message = MessageGenerator.generateMessage(data, TemplateInfo.sentEmail);
+        String message = MessageGenerator.generateMessage(data, TemplateInfo.dailyTemplate);
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
     }
 
     @Test
     public void shouldUseFullMessageWhenDataIsGiven() {
-        Set<String> info1 = new TreeSet<String>();
-        Set<String> info2 = new TreeSet<String>();
-        Set<String> info3 = new TreeSet<String>();
-        info1.add("cita 1");
+        List<String> info1 = new ArrayList<String>();
+        List<String> info2 = new ArrayList<String>();
         info1.add("cita 2");
+        info1.add("cita 1");
+ 
         info2.add("cita 3");
         info2.add("cita 4");
-        info3.add("cita 5");
-        String expected = "Resumen de correos auto-enviados:\n\ncita 1\ncita 2\ncita 3\ncita 4\n\nPara hacer:\ncita 5\n";
+        info2.add("cita 5");
+        String expected = "Mostrando las entradas de hoy (2 entradas y 3 citas):\n\ncita 2\ncita 1\n\nCitas:\ncita 3\ncita 4\ncita 5\n";
 
-        Map<String, Set<String>> data = new HashMap<String, Set<String>>();
+        Map<String, List<String>> data = new HashMap<String, List<String>>();
         data.put("data", info1);
-        data.put("dataPinboard", info2);
-        data.put("data2Do", info3);
-        String message = MessageGenerator.generateMessage(data, TemplateInfo.sentEmail);
+        data.put("dataQuote", info2);
+        
+        String message = MessageGenerator.generateMessage(data, TemplateInfo.dailyTemplate);
         assertNotNull(message, "no message is generated");
         
         assertEquals(message, expected, "expected message is not generated");

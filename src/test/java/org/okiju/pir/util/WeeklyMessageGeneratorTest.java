@@ -4,55 +4,54 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.okiju.pir.model.TemplateInfo;
 import org.testng.annotations.Test;
 
-public class FavoritesTwitterMessageGeneratorTest {
+public class WeeklyMessageGeneratorTest {
     @Test
     public void shouldUseEmptyMessageWhenNoMapIsGiven() {
         String expected = "";
 
-        Map<String, Set<String>> data = null;
-        String message = MessageGenerator.generateMessage(data, TemplateInfo.favoritesTwitter);
+        Map<String, List<String>> data = null;
+        String message = MessageGenerator.generateMessage(data, TemplateInfo.weeklyTemplate);
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
     }
 
     @Test
     public void shouldUseEmptyMessageWhenNoDataIsGiven() {
-        Set<String> info = new HashSet<String>();
+        List<String> info = new ArrayList<String>();
         String expected = "hoy";
 
-        Map<String, Set<String>> data = new HashMap<String, Set<String>>();
+        Map<String, List<String>> data = new HashMap<String, List<String>>();
         data.put("data", info);
-        String message = MessageGenerator.generateMessage(data, TemplateInfo.favoritesTwitter);
+        String message = MessageGenerator.generateMessage(data, TemplateInfo.weeklyTemplate);
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
     }
 
     @Test
     public void shouldUseFullMessageWhenDataIsGiven() {
-        Set<String> info1 = new TreeSet<String>();
-        Set<String> info2 = new TreeSet<String>();
-        info1.add("cita 2");
+        List<String> info1 = new ArrayList<String>();
+        List<String> info2 = new ArrayList<String>();
+        List<String> info3 = new ArrayList<String>();
         info1.add("cita 1");
- 
+        info1.add("cita 2");
         info2.add("cita 3");
         info2.add("cita 4");
-        info2.add("cita 5");
-        String expected = "Mostrando los favoritos de hoy:\n\ncita 1\ncita 2\n\nCitas:\ncita 3\ncita 4\ncita 5\n";
+        info3.add("cita 5");
+        String expected = "Preparando el resumen semanal (2 correo(s), 2 enlace(s) de Pinboard y 1 enlace(s) de Instapaper):\n\ncita 1\ncita 2\ncita 3\ncita 4\n\nPara hacer:\ncita 5\n";
 
-        Map<String, Set<String>> data = new HashMap<String, Set<String>>();
+        Map<String, List<String>> data = new HashMap<String, List<String>>();
         data.put("data", info1);
-        data.put("dataQuote", info2);
-        
-        String message = MessageGenerator.generateMessage(data, TemplateInfo.favoritesTwitter);
+        data.put("dataPinboard", info2);
+        data.put("data2Do", info3);
+        String message = MessageGenerator.generateMessage(data, TemplateInfo.weeklyTemplate);
         assertNotNull(message, "no message is generated");
         
         assertEquals(message, expected, "expected message is not generated");

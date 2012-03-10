@@ -12,6 +12,10 @@ email.recipient=receiver@mail.com
 email.username=username@mail.com
 email.password=passwd
 
+#instapaper configuration
+instapaper.username=username
+instapaper.password=password
+
 #pinboard configuration
 pinboard.username=username
 pinboard.password=passwd

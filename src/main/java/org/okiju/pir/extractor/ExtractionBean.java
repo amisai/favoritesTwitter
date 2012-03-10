@@ -1,13 +1,12 @@
-package org.okiju.pir.cli;
+package org.okiju.pir.extractor;
 
-import org.okiju.pir.generator.Generator;
 
 public class ExtractionBean {
     private String context;
-    private Generator generator;
+    private Extractor generator;
     private String filename;
 
-    public ExtractionBean(String context, Generator generator, String filename) {
+    public ExtractionBean(String context, Extractor generator, String filename) {
         super();
         this.context = context;
         this.generator = generator;
@@ -18,7 +17,7 @@ public class ExtractionBean {
         return context;
     }
 
-    public Generator getGenerator() {
+    public Extractor getGenerator() {
         return generator;
     }
 

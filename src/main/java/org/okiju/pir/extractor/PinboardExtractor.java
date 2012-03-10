@@ -1,4 +1,4 @@
-package org.okiju.pir.generator;
+package org.okiju.pir.extractor;
 
 import java.util.HashSet;
 import java.util.Properties;
@@ -7,27 +7,25 @@ import java.util.Set;
 import org.okiju.pir.model.Entry;
 import org.okiju.pir.model.Post;
 import org.okiju.pir.model.Posts;
-import org.okiju.pir.pinboard.PinboardClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.okiju.pir.util.pinboard.PinboardClient;
 
-public class PinboardGenerator implements Generator {
+public class PinboardExtractor implements Extractor {
 
-    private static transient Logger logger = LoggerFactory.getLogger(PinboardGenerator.class);
+//    private static transient Logger logger = LoggerFactory.getLogger(PinboardExtractor.class);
     private Properties properties;
 
-    public PinboardGenerator(Properties props) {
+    public PinboardExtractor(Properties props) {
         this.properties = props;
     }
 
-    public Set<Entry> generate() {
+    public Set<Entry> extract() {
         Set<Entry> result = new HashSet<Entry>();
         int count = 50;
         PinboardClient client = new PinboardClient(properties);
         Posts posts = client.getBookmarks(count);
 
         for (Post post : posts.getPosts()) {
-            result.add(new Entry(post.getHref()));
+            result.add(new Entry(post.getDescription(), post.getHref(), post.getTime()));
         }
 
         return result;
