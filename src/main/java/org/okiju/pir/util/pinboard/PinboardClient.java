@@ -32,7 +32,7 @@ public class PinboardClient {
     }
 
     private static URI getBaseURI() {
-        return UriBuilder.fromUri("https://@api.pinboard.in/v1/").build();
+        return UriBuilder.fromUri("https://api.pinboard.in/v1/").build();
     }
 
     private String password;

@@ -8,7 +8,7 @@ So I started marking interesting twits as favorites, looking for free time to ch
 
 This program retrieve all favorites of your Twitter acount, deleting as favorites and send them to you in an email (as storing them in a local file, just in case).
 
-I'm adding new functionalities, such as retrieving information also from some Instapaper folders, and auto-sent emails and testing which retrieval options (timing, information combination, ...) fit best with my life...
+I'm adding new functionalities, such as retrieving information also from some Instapaper folders, and auto-sent emails and testing which retrieval options (timing, information combination, ...) fit best with my lifestyle...
 
 I doubt that, like it is right now, fits to you, but maybe gives you an starting point to get your information in a more comfortable way.
 
@@ -48,9 +48,13 @@ Configuring instapaper access
 -----------------------------
 In order to access to instapaper information, I'm using insta4j (https://github.com/dzontak/insta4j). As it's explained in that library page, you need to have a subscription, obtaining in back 2 oauth codes, that have to be stored in insta4j.properties (I provide a insta4j.properties_sample).
 
+Configuring pinboard access
+-----------------------------
+In order to access to pinboard information, I'm using Jersey as REST client.  You have to provided username and password in twitter4j.properties as pinboard.username and pinboard.password
+
 Invocation
 ==========
-To invoke application you'll have to invoke with*java -jar target/FavoritesTwitter-0.1-SNAPSHOT-jar-with-dependencies.jar*.
+To invoke application you'll have to invoke with*java -jar target/FavoritesTwitter-0.2-SNAPSHOT-jar-with-dependencies.jar*.
 
 
 [0]: http://twitter4j.org/
