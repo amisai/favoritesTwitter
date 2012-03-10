@@ -17,23 +17,22 @@ import javax.mail.Store;
 import javax.mail.internet.MimeMultipart;
 
 import org.okiju.pir.filter.Filter;
-import org.okiju.pir.filter.SentEmailFilter;
+import org.okiju.pir.filter.SubjectEmailFilter;
 import org.okiju.pir.model.Entry;
-import org.okiju.pir.util.DateHelper;
-import org.okiju.pir.util.StandardStringCleaner;
-import org.okiju.pir.util.BasicStringCleaner;
+import org.okiju.pir.util.QuoteMealCleaner;
+import org.okiju.pir.util.StringCleaner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sun.mail.imap.IMAPBodyPart;
 
-public class SentEmailExtractor implements Extractor {
+public class QuoteEmailExtractor implements Extractor {
 
-    private static transient Logger logger = LoggerFactory.getLogger(SentEmailExtractor.class);
+    private static transient Logger logger = LoggerFactory.getLogger(QuoteEmailExtractor.class);
     private String username;
     private String password;
 
-    public SentEmailExtractor(Properties props) {
+    public QuoteEmailExtractor(Properties props) {
         username = props.getProperty("email.username");
         password = props.getProperty("email.password");
     }
@@ -47,9 +46,8 @@ public class SentEmailExtractor implements Extractor {
 
             List<Message> bulkSentMessages = getEmailsFromServer(store);
 
-            List<Message> sentMessages = filterMessages(bulkSentMessages, new SentEmailFilter(username));
-
-            messages = generateEntries(sentMessages);
+            List<Message> sentMessages = filterMessages(bulkSentMessages, new SubjectEmailFilter("Quotemeal"));
+             messages = generateEntries(sentMessages);
             store.close();
         } catch (Exception e) {
             logger.error("Error while getting emails information", e);
@@ -57,7 +55,7 @@ public class SentEmailExtractor implements Extractor {
         return messages;
     }
 
-    private Store openStore() throws NoSuchProviderException, MessagingException {
+    public Store openStore() throws NoSuchProviderException, MessagingException {
         Properties props = new Properties();
         props.setProperty("mail.store.protocol", "imaps");
         Session session = Session.getInstance(props, null);
@@ -87,46 +85,36 @@ public class SentEmailExtractor implements Extractor {
     }
 
     private String extractContentFromMessage(Message msg) throws IOException, MessagingException {
-   
+
         Object content = msg.getContent();
         String dataContent = content.toString();
         if (content instanceof MimeMultipart) {
             MimeMultipart multipart = (MimeMultipart) content;
             dataContent = ((IMAPBodyPart) multipart.getBodyPart(0)).getContent().toString();
         }
-        dataContent = removeGreetingExpresions(dataContent);
-        
+        dataContent = cleanMessageContent(dataContent);
+
         return createMessageSummary(msg, dataContent);
     }
 
     private String createMessageSummary(Message msg, String dataContent) throws MessagingException {
         StringBuilder abstractMsg = new StringBuilder();
-        abstractMsg.append(msg.getSubject()).append("\n").append(dataContent).append("\n");
+        abstractMsg.append(dataContent).append("\n");
         return abstractMsg.toString();
     }
 
-    private String removeGreetingExpresions(String dataContent) {
-        BasicStringCleaner cleaner = new StandardStringCleaner();
+    private String cleanMessageContent(String dataContent) {
+        StringCleaner cleaner = new QuoteMealCleaner();
 
         return cleaner.clean(dataContent);
     }
+    
+    public static List<Message> getEmailsFromServer(Store store) throws NoSuchProviderException, MessagingException {
 
-    private List<Message> getEmailsFromServer(Store store) throws NoSuchProviderException, MessagingException {
-
-        Folder sentMail = store.getFolder("[Gmail]/Sent Mail");
-        sentMail.open(Folder.READ_ONLY);
-        int deltaMsgs = 10;
-        int end = sentMail.getMessageCount();
-        int start = end - deltaMsgs;
-        boolean found = false;
-        List<Message> bulkSentMessages = new ArrayList<Message>();
-        do {
-            List<Message> tempMessages = Arrays.asList(sentMail.getMessages(start, end));
-            found = DateHelper.isDateAWeekBefore(tempMessages.get(0).getSentDate());
-            bulkSentMessages.addAll(tempMessages);
-            end = start - 1;
-            start = end - deltaMsgs;
-        } while (!found);
-        return bulkSentMessages;
+        Folder inbox = store.getFolder("Inbox");
+        inbox.open(Folder.READ_ONLY);
+        int end = inbox.getMessageCount();
+        int start = 1;
+        return Arrays.asList(inbox.getMessages(start, end));
     }
 }

@@ -8,10 +8,10 @@ import javax.mail.MessagingException;
 
 import org.okiju.pir.util.DateHelper;
 
-public class MessageFilter implements Filter {
+public class SentEmailFilter implements Filter {
 
     private String username;
-    public MessageFilter(String username) {
+    public SentEmailFilter(String username) {
         this.username = username;
     }
     @Override

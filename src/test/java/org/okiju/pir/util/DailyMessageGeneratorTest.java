@@ -22,7 +22,6 @@ public class DailyMessageGeneratorTest {
         assertNotNull(message, "no message is generated");
         assertTrue(message.indexOf(expected) != -1, "expected message is not generated:" + message + ":");
     }
-
     
     @Test
     public void shouldUseEmptyMessageWhenNoDataIsGiven() {
@@ -40,21 +39,26 @@ public class DailyMessageGeneratorTest {
     public void shouldUseFullMessageWhenDataIsGiven() {
         List<String> info1 = new ArrayList<String>();
         List<String> info2 = new ArrayList<String>();
+        List<String> info3 = new ArrayList<String>();
         info1.add("cita 2");
         info1.add("cita 1");
  
         info2.add("cita 3");
-        info2.add("cita 4");
-        info2.add("cita 5");
-        String expected = "Mostrando las entradas de hoy (2 entradas y 3 citas):\n\ncita 2\ncita 1\n\nCitas:\ncita 3\ncita 4\ncita 5\n";
+        info3.add("cita 4");
+        info3.add("cita 5");
+        String expected = "Mostrando las entradas de hoy (2 entrada(s), 1 cita(s) de correos y 2 cita(s) en Instapaper):\n\ncita 2\ncita 1\n\nCitas:\ncita 3\ncita 4\ncita 5\n";
 
         Map<String, List<String>> data = new HashMap<String, List<String>>();
         data.put("data", info1);
-        data.put("dataQuote", info2);
+        data.put("dataQuotes", info2);
+        data.put("dataQuoteInstapaper", info3);
         
         String message = MessageGenerator.generateMessage(data, TemplateInfo.dailyTemplate);
         assertNotNull(message, "no message is generated");
         
-        assertEquals(message, expected, "expected message is not generated");
+//        for (int i = 0; i < Math.min(message.length(), expected.length()); i++) {
+//            System.out.println(message.charAt(i) + " - " + expected.charAt(i));
+//        }
+        assertEquals(message, expected, "expected message is not generated:" + message.length() + "-" + expected.length());
     }
 }

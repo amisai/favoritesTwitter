@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import org.okiju.pir.extractor.ExtractionBean;
 import org.okiju.pir.extractor.InstapaperExtractor;
+import org.okiju.pir.extractor.QuoteEmailExtractor;
 import org.okiju.pir.extractor.TwitterExtractor;
 import org.okiju.pir.generator.BuildGenerator;
 import org.okiju.pir.generator.Generator;
@@ -28,11 +29,14 @@ public class DailyGenerator {
         
         ExtractionBean twitterFavorites = new ExtractionBean("data", new TwitterExtractor(props, !testing),
                 "ficheroTwits");
-        ExtractionBean quotesInstapaper = new ExtractionBean("dataQuote", new InstapaperExtractor(props, "Citas",
+        ExtractionBean quotesEmail = new ExtractionBean("dataQuotes", new QuoteEmailExtractor(props),
+        "ficheroQuotes");
+        ExtractionBean quotesInstapaper = new ExtractionBean("dataQuoteInstapaper", new InstapaperExtractor(props, "Citas",
                 !testing), "ficheroInstapaperQuotes");
 
         Generator generator = BuildGenerator.withProperties(props)
                 .thatExecutesThisExtraction(twitterFavorites)
+                .and().thatExecutesThisExtraction(quotesEmail)
                 .and().thatExecutesThisExtraction(quotesInstapaper)
                 .andSendAnEmailWithThisSubjectAndThisTemplate("Resumen diario del día ", TemplateInfo.dailyTemplate)
                 .build();

@@ -1,10 +1,13 @@
-Mostrando las entradas de hoy ($data.size() entradas y $dataQuote.size() citas):
+Mostrando las entradas de hoy ($data.size() entrada(s), $dataQuotes.size() cita(s) de correos y $dataQuoteInstapaper.size() cita(s) en Instapaper):
 
 #foreach( $cita in $data )
 $cita
 #end
 
 Citas:
-#foreach( $url in $dataQuote )
+#foreach( $quote in $dataQuotes )
+$quote
+#end
+#foreach( $url in $dataQuoteInstapaper )
 $url
 #end

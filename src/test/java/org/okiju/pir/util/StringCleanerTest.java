@@ -11,7 +11,7 @@ public class StringCleanerTest {
         String input = "\n Espero que todo vaya bien \n Enviado desde mi iPad\n \t \nUn saludo, \nAbel";
 
         String expected = "\n Espero que todo vaya bien \n";
-        StringCleaner cleaner = new StringCleaner();
+        BasicStringCleaner cleaner = new BasicStringCleaner();
 
         cleaner.add("Enviado desde mi iPad");
         cleaner.add("Un saludo,");
@@ -37,7 +37,7 @@ public class StringCleanerTest {
     public void shouldRemoveRepeatedCR() {
         String input = "\n \n \n";
         String expected = "\n";
-        StringCleaner cleaner = new StringCleaner();
+        StringCleaner cleaner = new BasicStringCleaner();
 
         String result = cleaner.clean(input);
         assertNotNull(result, "no valid result");
@@ -48,7 +48,7 @@ public class StringCleanerTest {
     public void shouldRemoveWhitespaces() {
         String input = "\n     uno    \t dos \n tres \n";
         String expected = "\n uno dos \n tres \n";
-        StringCleaner cleaner = new StringCleaner();
+        StringCleaner cleaner = new BasicStringCleaner();
 
         String result = cleaner.clean(input);
         assertNotNull(result, "no valid result");
@@ -59,7 +59,7 @@ public class StringCleanerTest {
     public void shouldRemoveEmptyLines() {
         String input = "\n     uno    \t dos \n tres \n    \n     \t     \n";
         String expected = "\n uno dos \n tres \n";
-        StringCleaner cleaner = new StringCleaner();
+        StringCleaner cleaner = new BasicStringCleaner();
 
         String result = cleaner.clean(input);
         assertNotNull(result, "no valid result");
